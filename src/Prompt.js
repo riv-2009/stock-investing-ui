@@ -1,21 +1,27 @@
-const Prompt = (props) => {
+import { Input } from "@mui/material";
 
+const Prompt = (props) => {
     return (
         <>
             <form onSubmit={props.handleSubmit}>
-                <label>
+                <div>
                     <h3>{props.stockOpenMsg}</h3>
-                    <h4 >{props.message}</h4>
-                    <input
+                    <h4>Enter a ticker symbol</h4>
+                    <Input
+                        variant='outlined'
                         type="text"
-                        className="form-control"
+                        className="ticker-input"
                         value={props.input}
                         onChange={(e) => {
                             props.setInput(e.target.value);
                         }}
                     />
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                </label>
+                    <div className="ticker-submit">
+                        <button type="submit" className=" btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </div>
             </form>
         </>
     );

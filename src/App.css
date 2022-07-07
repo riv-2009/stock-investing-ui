@@ -18,6 +18,10 @@
   opacity: 1;
 }
 
+form-control{
+  width: 3% !important;
+}
+
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -42,4 +46,7 @@
 }
 .options{
   margin-right: 12px !important;
+}
+.ticker-submit{
+  padding-top: 20px !important;
 }
