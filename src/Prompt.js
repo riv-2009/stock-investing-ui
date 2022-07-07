@@ -4,7 +4,8 @@ const Prompt = (props) => {
         <>
             <form onSubmit={props.handleSubmit}>
                 <label>
-                    <h4>{props.message}</h4>
+                    <h3>{props.stockOpenMsg}</h3>
+                    <h4 >{props.message}</h4>
                     <input
                         type="text"
                         className="form-control"
