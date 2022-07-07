@@ -7,6 +7,7 @@ import PieChart from "./PieChart";
 import InvestmentAccount from "./InvestmentAccout";
 import { useState, useEffect } from "react";
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+import InvestOptions from "./Options";
 
 function App() {
     const [message, setMessage] = useState("Enter a ticker symbol");
@@ -18,6 +19,7 @@ function App() {
     const [index, setIndex] = useState(0);
     const [shares, setShares] = useState(0);
     const [investmentBal, setInvestmentBal] = useState(0);
+    const [Action, setAction] = useState("");
 
     useEffect(() => {
         const connection = new HubConnectionBuilder()
@@ -92,19 +94,35 @@ function App() {
 
     return (
         <div className="container">
-            <Prompt
-                handleSubmit={handleSubmit}
-                input={input}
-                message={message}
-                stockOpenMsg={stockOpenMsg}
-                setInput={setInput}
-            />
-            <StockSlider
-                shares={shares}
-            />
-            <PieChart />
-            <BankAccount bal={bal} />
-            <InvestmentAccount bal={investmentBal} />
+            {stockData === "" && (
+                <Prompt
+                    handleSubmit={handleSubmit}
+                    input={input}
+                    message={message}
+                    stockOpenMsg={stockOpenMsg}
+                    setInput={setInput}
+                />
+            )}
+            {stockData !== "" && Action == "" && (
+                <>
+                    {stockOpenMsg}
+                    <br />
+                    {message}
+                    <InvestOptions action={Action} setAction={setAction} />
+                </>
+            )}
+            {Action == "buy" || Action == "sell" && (
+                <>
+                    <StockSlider shares={shares} setInput={setInput} />
+                    <PieChart />
+                </>
+            )}
+            {stockData !== "" && (
+                <>
+                    <InvestmentAccount bal={investmentBal} />
+                    <BankAccount bal={bal} />
+                </>
+            )}
         </div>
     );
 }
