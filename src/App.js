@@ -103,7 +103,7 @@ function App() {
                     setInput={setInput}
                 />
             )}
-            {stockData !== "" && Action == "" && (
+            {(stockData !== "" && Action == "") && (
                 <>
                     {stockOpenMsg}
                     <br />
@@ -111,7 +111,7 @@ function App() {
                     <InvestOptions action={Action} setAction={setAction} />
                 </>
             )}
-            {Action == "buy" || Action == "sell" && (
+            {(Action == "buy" || Action == "sell") && (
                 <>
                     <StockSlider shares={shares} setInput={setInput} />
                     <PieChart />
