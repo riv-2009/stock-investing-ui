@@ -9,63 +9,38 @@ const InvestOptions = ({
     index,
     bal,
 }) => {
+    let isBuyEnabled = (bal, price) => {
+        if (bal < price) return false;
+        return true;
+    };
+
+    let isSellEnabled = (shares) => {
+        if (shares == 0) return false;
+        return true;
+    };
+
     return (
         <div className="options">
-            {bal < stockData.results[index].o && (
-                <>
-                    <Button
-                        className="options"
-                        disabled={true}
-                        variant="contained"
-                        onClick={() => {
-                            setAction("buy");
-                        }}
-                    >
-                        Buy
-                    </Button>
-                </>
-            )}
-            {bal > stockData.results[index].o && (
-                <>
-                    <Button
-                        className="options"
-                        variant="contained"
-                        onClick={() => {
-                            setAction("buy");
-                        }}
-                    >
-                        Buy
-                    </Button>
-                </>
-            )}
-
-            {shares == 0 && (
-                <>
-                    <Button
-                        className="options"
-                        disabled={true}
-                        variant="contained"
-                        onClick={() => {
-                            setAction("sell");
-                        }}
-                    >
-                        Sell
-                    </Button>
-                </>
-            )}
-            {shares > 0 && (
-                <>
-                    <Button
-                        className="options"
-                        variant="contained"
-                        onClick={() => {
-                            setAction("sell");
-                        }}
-                    >
-                        Sell
-                    </Button>
-                </>
-            )}
+            <Button
+                className="options"
+                variant="contained"
+                disabled={!isBuyEnabled(bal, stockData.results[index].o)}
+                onClick={() => {
+                    setAction("buy");
+                }}
+            >
+                Buy
+            </Button>
+            <Button
+                className="options"
+                disabled={!isSellEnabled(shares)}
+                variant="contained"
+                onClick={() => {
+                    setAction("sell");
+                }}
+            >
+                Sell
+            </Button>
             <Button
                 className="options"
                 variant="contained"
