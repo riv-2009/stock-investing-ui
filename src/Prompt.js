@@ -5,8 +5,7 @@ const Prompt = (props) => {
         <>
             <form onSubmit={props.handleSubmit}>
                 <div>
-                    <h3>{props.stockOpenMsg}</h3>
-                    <h4>Enter a ticker symbol</h4>
+                    <h4>{props.message}</h4>
                     <Input
                         variant='outlined'
                         type="text"

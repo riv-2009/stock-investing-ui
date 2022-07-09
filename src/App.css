@@ -50,3 +50,9 @@ form-control{
 .ticker-submit{
   padding-top: 20px !important;
 }
+.gain{
+  color: green;
+}
+.loss{
+  color: red;
+}

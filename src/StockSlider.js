@@ -7,11 +7,9 @@ const StockSlider = ({ sharesPurchased, shares, Value, setValue, Action }) => {
         <Box width={300}>
             {Action == "buy" && (
                 <Slider
-                    defaultValue={Value}
+                    value={Value}
                     aria-label="Default"
                     valueLabelDisplay="auto"
-                    getAriaValueText={Value}
-
                     max={Math.trunc(shares)}
                     onChange={(e) => {
                         setValue(e.target.value);
@@ -20,7 +18,7 @@ const StockSlider = ({ sharesPurchased, shares, Value, setValue, Action }) => {
             )}
             {Action == "sell" && (
                 <Slider
-                defaultValue={Value}
+                    value={Value}
                     aria-label="Default"
                     valueLabelDisplay="auto"
                     max={Math.trunc(sharesPurchased)}

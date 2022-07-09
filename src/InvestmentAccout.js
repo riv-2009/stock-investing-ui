@@ -1,7 +1,7 @@
 const InvestmentAccount = ({bal, shares}) => {
     return <div>
-        Investment Account Balance: ${bal.toLocaleString("en-US")}
-        {"  "}Shares Owned : {shares}
+        <h6>Investment Account Balance: ${bal.toLocaleString("en-US")}</h6>
+        <h6>Shares Owned : {shares}</h6>
     </div>;
 };
 export default InvestmentAccount;
