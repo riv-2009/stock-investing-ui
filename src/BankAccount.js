@@ -1,6 +1,6 @@
 const BankAccount = ({bal}) => {
     return (
-        <div>Bank account balance: ${bal.toLocaleString("en-US")}</div>
+        <h6>Bank account balance: ${bal.toLocaleString("en-US")}</h6>
     );
 };
 export default BankAccount;
