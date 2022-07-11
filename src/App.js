@@ -3,12 +3,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Prompt from "./Prompt";
 import BankAccount from "./BankAccount";
 import StockSlider from "./StockSlider";
-import PieChart from "./PieChart";
+import { Chart } from "./Chart/Chart";
 import InvestmentAccount from "./InvestmentAccout";
 import { useState, useEffect } from "react";
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import InvestOptions from "./Options";
 import { Button, Input } from "@mui/material";
+import CircularInput from "./Chart/CircularInput";
 
 function App() {
 	const [message, setMessage] = useState("Enter a ticker symbol:");
@@ -191,29 +192,37 @@ function App() {
 			)}
 			{(Action == "buy" || Action == "sell") && (
 				<div className="value-options">
-					<Input
-						variant="outlined"
-						type="text"
-						className="ticker-input"
-						value={Value}
-						onKeyUp={(e) => {
-							const num = parseInt(e.target.value);
-							if (!isNaN(num)) {
-								setValue(e.target.value);
-							}
-						}}
-						onChange={(e) => {
-							setValue(e.target.value);
-						}}
-					/>
-					<StockSlider
-						setValue={setValue}
-						Value={Value}
-						shares={sharesPurchaseLimit}
-						Action={Action}
-						sharesPurchased={sharesPurchased}
-					/>
-					<Chart />
+					<div className="input-container">
+						<div className="mr">
+							<Input
+								variant="outlined"
+								type="text"
+								className="ticker-input"
+								value={Value}
+								onKeyUp={(e) => {
+									const num = parseInt(e.target.value);
+									if (!isNaN(num)) {
+										setValue(e.target.value);
+									}
+								}}
+								onChange={(e) => {
+									setValue(e.target.value);
+								}}
+							/>
+							<StockSlider
+								setValue={setValue}
+								Value={Value}
+								shares={sharesPurchaseLimit}
+								Action={Action}
+								sharesPurchased={sharesPurchased}
+							/>
+						</div>
+						<CircularInput
+							value={Value}
+							setValue={setValue}
+							total={sharesPurchaseLimit}
+						/>
+					</div>
 					<Button
 						name="action"
 						variant="contained"
