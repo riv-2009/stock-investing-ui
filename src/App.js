@@ -221,6 +221,8 @@ function App() {
 							value={Value}
 							setValue={setValue}
 							total={sharesPurchaseLimit}
+                            Action={Action}
+                            sharesPurchased={sharesPurchased}
 						/>
 					</div>
 					<Button
