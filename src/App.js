@@ -6,9 +6,9 @@ import GameBoard from "./wordBoard";
 import Login from "./login";
 
 const App = () => {
-    const [UserName, setUserName] = useState();
-    let player2 = "";
     const [connection, setConnection] = useState("");
+    const [player1, setPlayer1] = useState("");
+    const [player2, setPlayer2] = useState("");
 
     useEffect(() => {
         const connection = new HubConnectionBuilder()
@@ -29,17 +29,21 @@ const App = () => {
         });
         // Start the connection.
         start();
+
         setConnection(connection);
-        
     }, []);
 
-    return UserName ? (
+    return player2 ? (
         <>
             {/* add game items here */}
-            <GameBoard />
+            <GameBoard player1={player1} player2={player2} />
         </>
     ) : (
-        <Login setUserName={setUserName} connection={connection} />
+        <Login
+            connection={connection}
+            setPlayer1={setPlayer1}
+            setPlayer2={setPlayer2}
+        />
     );
 };
 
