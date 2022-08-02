@@ -1,24 +1,46 @@
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { useState, useEffect } from "react";
-import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
-import GameBoard from "./wordBoard";
-import Login from "./login";
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState, useEffect } from 'react';
+import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import GameBoard from './wordBoard/wordBoard';
+import Login from './login';
 
 const App = () => {
-    const [connection, setConnection] = useState("");
-    const [player1, setPlayer1] = useState("");
-    const [player2, setPlayer2] = useState("");
+    const [connection, setConnection] = useState('');
+    const [player1, setPlayer1] = useState('');
+    const [player2, setPlayer2] = useState('');
+    const [Letters, setLetters] = useState();
+
+    useEffect(() => {
+        setLetters([
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J',
+            'K',
+            'L',
+            'M',
+            'N',
+            'O',
+            'P',
+        ]);
+    }, []);
 
     useEffect(() => {
         const connection = new HubConnectionBuilder()
-            .withUrl("https://localhost:7097/wordHub")
+            .withUrl('https://localhost:7097/wordHub')
             .configureLogging(LogLevel.Information)
             .build();
         async function start() {
             try {
                 await connection.start();
-                console.log("SignalR Connected.");
+                console.log('SignalR Connected.');
             } catch (err) {
                 console.log(err);
                 setTimeout(start, 5000);
@@ -33,18 +55,14 @@ const App = () => {
         setConnection(connection);
     }, []);
 
-    return player2 ? (
-        <>
-            {/* add game items here */}
-            <GameBoard player1={player1} player2={player2} />
-        </>
-    ) : (
-        <Login
-            connection={connection}
-            setPlayer1={setPlayer1}
-            setPlayer2={setPlayer2}
-        />
-    );
+    //replace true with player2 so that gamebaord shows when players are logged in
+    if (true)
+        return (
+            <div className="game-container">
+                {/* add game items here */}
+                <GameBoard Letters={Letters} />
+            </div>
+        );
 };
 
 export default App;
