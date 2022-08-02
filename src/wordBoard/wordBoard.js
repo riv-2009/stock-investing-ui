@@ -9,7 +9,6 @@ const GameBoard = ({ Letters }) => {
         TileIndex: null,
     });
     const [AvailableTiles, setAvailableTiles] = useState([]);
-    const [Style, setStyle] = useState('Blue');
     const [Message, setMessage] = useState();
 
     useEffect(() => {
@@ -17,8 +16,32 @@ const GameBoard = ({ Letters }) => {
     }, [CurrentTile]);
 
     const handleTileClick = (letter, index) => {
-        setCurrentTile({ letter, TileIndex: index });
-        setSelectedTiles([index, ...SelectedTiles]);
+        for (let i in SelectedTiles) {
+            if (SelectedTiles[i] === index) {
+                setMessage('Tile Already Selected');
+                return;
+            }
+        }
+        if (SelectedTiles.length > 0) {
+            let available = false;
+            for (let i in AvailableTiles) {
+                if (AvailableTiles[i] === index) {
+                    available = true;
+                }
+            }
+            if (available) {
+                setCurrentTile({ letter, TileIndex: index });
+                setSelectedTiles([index, ...SelectedTiles]);
+                setMessage('');
+            } else {
+                setMessage('Invalid Tile');
+            }
+        } else {
+            setCurrentTile({ letter, TileIndex: index });
+            setSelectedTiles([index, ...SelectedTiles]);
+            setMessage('');
+        }
+        console.log(SelectedTiles);
     };
 
     const setTiles = () => {
@@ -27,7 +50,7 @@ const GameBoard = ({ Letters }) => {
                 setAvailableTiles([1, 4, 5]);
                 break;
             case 1:
-                setAvailableTiles([0, 1, 4, 5, 6, 2]);
+                setAvailableTiles([0, 4, 5, 6, 2]);
                 break;
             case 2:
                 setAvailableTiles([1, 5, 6, 7, 3]);
@@ -77,37 +100,46 @@ const GameBoard = ({ Letters }) => {
         return;
     };
 
-
     const colorStyle = (index) => {
-        for(let i in AvailableTiles){
-            if (AvailableTiles[i] === index){
-                return 'lightblue'
+        if (index === CurrentTile.TileIndex) {
+            return 'green';
+        }
+        for (let i in SelectedTiles) {
+            if (SelectedTiles[i] === index) {
+                return 'dodgerblue';
             }
         }
-        if (index > -1) {
-            return 'lightgreen';
-        }
+        // for (let i in AvailableTiles) {
+        //     if (AvailableTiles[i] === index) {
+        //         return 'lightgreen';
+        //     }
+        // }
+        return 'lightblue';
     };
 
     return Letters ? (
-        <Box className="board-container">
-            {Letters.map((letter, index) => (
-                <Box
-                    className={'board-tile '}
-                    backgroundColor={colorStyle(index)}
-                    onClick={() => {
-                        handleTileClick(letter, index);
-                    }}
-                    key={index}
-                    id={index}
-                    color={'green'}
-                >
-                    {letter}-{index}
+        <>
+            <Center>
+                <Box className="board-container">
+                    {Letters.map((letter, index) => (
+                        <Box
+                            className={'board-tile '}
+                            backgroundColor={colorStyle(index)}
+                            //colorScheme={'pink'}
+                            onClick={() => {
+                                handleTileClick(letter, index);
+                            }}
+                            key={index}
+                            id={index}
+                            //color={'green'}
+                        >
+                            <h1>{letter}</h1>
+                        </Box>
+                    ))}
                 </Box>
-            ))}
+            </Center>
             <Center>{Message}</Center>
-            {Message}
-        </Box>
+        </>
     ) : (
         <Center>
             <h1>
